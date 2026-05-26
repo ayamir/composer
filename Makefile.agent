@@ -1,0 +1,52 @@
+# Agent workflow commands.
+# Include this file from your existing Makefile:
+#
+# include Makefile.agent
+#
+# Or run directly:
+# make -f Makefile.agent agent-status
+
+.PHONY: agent-status agent-context agent-review agent-verify agent-init-task agent-clean-review-input agent-setup agent-check
+
+agent-status:
+	@bash .agent/scripts/verify-agent-state.sh
+
+agent-check:
+	@bash .agent/scripts/check-workflow-readiness.sh readiness
+
+agent-context:
+	@bash .agent/scripts/context-summary.sh
+
+agent-review:
+	@bash .agent/scripts/review-with-codex.sh
+
+agent-verify:
+	@echo "Run your project-specific tests, then update .agent/verification-report.md."
+	@echo
+	@echo "Suggested examples:"
+	@echo "  go test ./..."
+	@echo "  cargo test --workspace"
+	@echo "  pytest"
+	@echo "  make integration-test"
+
+agent-init-task:
+	@mkdir -p .agent
+	@echo "Edit .agent/task.md to define the current task."
+	@echo "Then run: make -f Makefile.agent agent-context"
+
+agent-clean-review-input:
+	@rm -f .agent/review-input.md
+	@echo "Removed .agent/review-input.md"
+
+.PHONY: agent-capture-knowledge
+
+agent-capture-knowledge:
+	@bash .agent/scripts/capture-knowledge-prompt.sh
+
+.PHONY: agent-validate-report
+
+agent-validate-report:
+	@bash .agent/scripts/validate-verification-report.sh
+
+agent-setup:
+	@bash .agent/scripts/install-agent-workflow.sh

@@ -1,0 +1,4 @@
+# Optional agent workflow ignores
+.agent/review-input.md
+.agent/tmp/
+.agent/*.local.md
