@@ -6,7 +6,7 @@
 # Or run directly:
 # make -f Makefile.agent agent-status
 
-.PHONY: agent-status agent-context agent-review agent-verify agent-init-task agent-clean-review-input agent-setup agent-check
+.PHONY: agent-status agent-context agent-review agent-verify agent-init-task agent-clean-review-input agent-setup agent-check agent-bootstrap-help
 
 agent-status:
 	@bash .agent/scripts/verify-agent-state.sh
@@ -50,3 +50,7 @@ agent-validate-report:
 
 agent-setup:
 	@bash .agent/scripts/install-agent-workflow.sh
+
+agent-bootstrap-help:
+	@echo "Install this workflow into another repository with:"
+	@echo "  curl -fsSL https://raw.githubusercontent.com/ayamir/composer/main/scripts/bootstrap-agent-workflow.sh | bash"

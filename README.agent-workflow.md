@@ -41,6 +41,20 @@ Run once per clone:
 make agent-setup
 ```
 
+To install this workflow into a different repository via curl:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ayamir/composer/main/scripts/bootstrap-agent-workflow.sh | bash
+```
+
+Or install into an explicit target directory:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ayamir/composer/main/scripts/bootstrap-agent-workflow.sh | bash -s -- /path/to/repo
+```
+
+The bootstrap script installs the workflow skeleton and local hooks, but the target repository will still fail `agent-check` until you fill in `.agent/task.md`, `.agent/plan.md`, `.agent/state.md`, and `.agent/test-matrix.md` with real task content.
+
 That setup installs two enforcement layers:
 
 - Claude hooks in `.claude/settings.local.json`

@@ -101,6 +101,23 @@ has_repo_matching_changes() {
   } | sort -u | grep -Eq "$pattern"
 }
 
+require_filled_runtime_artifacts() {
+  case "$MODE" in
+    readiness)
+      return 0
+      ;;
+    pre-commit)
+      has_staged_matching_changes "$CODE_CHANGE_PATTERN"
+      ;;
+    pre-push|stop)
+      has_repo_matching_changes "$CODE_CHANGE_PATTERN"
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
 ensure_required_files_exist() {
   local required=(
     "AGENTS.md"
@@ -177,14 +194,16 @@ check_state_summary() {
 case "$MODE" in
   readiness)
     ensure_required_files_exist
-    check_task_and_plan_content
-    check_state_summary
-    check_test_design_content
+    if require_filled_runtime_artifacts; then
+      check_task_and_plan_content
+      check_state_summary
+      check_test_design_content
+    fi
     print_failures_and_exit "Workflow readiness check failed:"
     ;;
   pre-commit)
     ensure_required_files_exist
-    if has_staged_matching_changes "$CODE_CHANGE_PATTERN|$WORKFLOW_CHANGE_PATTERN"; then
+    if require_filled_runtime_artifacts; then
       check_task_and_plan_content
       check_state_summary
       check_test_design_content
@@ -193,7 +212,7 @@ case "$MODE" in
     ;;
   pre-push|stop)
     ensure_required_files_exist
-    if has_repo_matching_changes "$CODE_CHANGE_PATTERN|$WORKFLOW_CHANGE_PATTERN"; then
+    if require_filled_runtime_artifacts; then
       check_task_and_plan_content
       check_state_summary
       check_test_design_content

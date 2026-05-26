@@ -10,7 +10,7 @@ Agents must read this file before making changes.
 
 <!-- What should be achieved? Keep this concrete and verifiable. -->
 
-Add enforceable local workflow hooks for the repository and provide a one-command setup script.
+
 
 ---
 
@@ -28,9 +28,7 @@ Add enforceable local workflow hooks for the repository and provide a one-comman
 
 <!-- Add context, links, issue descriptions, error messages, or examples. -->
 
-The repository currently defines the agent workflow mostly in documentation and template files.
-Those rules are not enforced by active Claude hooks or git hooks, so the workflow can be skipped.
-This task converts key workflow checks into executable local enforcement while keeping the setup lightweight and tool-agnostic.
+
 
 ---
 
@@ -38,9 +36,9 @@ This task converts key workflow checks into executable local enforcement while k
 
 <!-- The task is done only if these are satisfied. -->
 
-- [ ] A one-command setup script installs local git hooks and enables project Claude hooks without clobbering unrelated settings.
-- [ ] Hook checks enforce the most important workflow gates for editing and task completion using the existing `.agent` artifacts.
-- [ ] Repository docs and task artifacts explain which checks run in Claude hooks vs git hooks and how to use the setup.
+- [ ] 
+- [ ] 
+- [ ] 
 
 ---
 
@@ -48,11 +46,11 @@ This task converts key workflow checks into executable local enforcement while k
 
 <!-- Compatibility, performance, security, observability, migration, rollout constraints. -->
 
-- Backward compatibility: Do not break existing manual Makefile workflows.
-- Performance: Hook checks should stay lightweight and avoid running project test suites automatically.
-- Security: Do not grant broader permissions or rely on network access.
-- Observability: Hook failures should print explicit remediation steps.
-- Migration: Reuse existing `.agent/scripts` where possible and avoid destructive changes to user settings.
+- Backward compatibility:
+- Performance:
+- Security:
+- Observability:
+- Migration:
 
 ---
 
@@ -60,8 +58,8 @@ This task converts key workflow checks into executable local enforcement while k
 
 <!-- Examples: concurrency, retries, idempotency, auth, schema compatibility, cache invalidation. -->
 
-- Existing users may already have `.claude/settings.local.json`; setup must merge instead of overwrite.
-- Overly strict hooks may block harmless exploration or documentation-only edits.
+- 
+- 
 
 ---
 
@@ -71,10 +69,7 @@ This task converts key workflow checks into executable local enforcement while k
 
 | File | Why it matters |
 |---|---|
-| Makefile.agent | Add setup commands for the local workflow bootstrap. |
-| .claude/settings.example.json | Source template for project Claude hook configuration. |
-| .agent/scripts/* | Existing workflow scripts to reuse and extend for enforcement. |
-| README.agent-workflow.md | Document the enforced setup and expected usage. |
+| | |
 
 ---
 
